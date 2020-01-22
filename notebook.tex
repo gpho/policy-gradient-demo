@@ -1,0 +1,1825 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{ReinforceFinal}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{REINFORCE Tutorial }\label{reinforce-tutorial}
+
+Here we provide from-scratch implementations (Parts 1 and 2) of
+REINFORCE as well as examples using an out-of-the-box package from
+OpenAI called Spinning Up (Part 3).
+
+\subsubsection{0) Setup}\label{setup}
+
+\begin{itemize}
+\tightlist
+\item
+  0.1) Defining the RLAgent Class
+\item
+  0.2) Training function
+\item
+  0.3) A random agent
+\end{itemize}
+
+\subsubsection{ 1) REINFORCE: simplest implementation (no
+tensorflow)}\label{reinforce-simplest-implementation-no-tensorflow}
+
+\begin{itemize}
+\tightlist
+\item
+  1.1) Cartpole: Performance with animations
+\item
+  1.2) Cartpole: Variance across runs
+\end{itemize}
+
+\subsubsection{ 2) REINFORCE with a deep policy network
+(Tensorflow)}\label{reinforce-with-a-deep-policy-network-tensorflow}
+
+\begin{itemize}
+\tightlist
+\item
+  2.1) Cartpole: Better performance than logistic regression
+\item
+  2.2) Lunar Lander
+\item
+  2.3) Pong from pixels using a CNN
+\end{itemize}
+
+\subsubsection{ 3) REINFORCE and PPO using OpenAI's Spinning Up
+Package}\label{reinforce-and-ppo-using-openais-spinning-up-package}
+
+    \subsection{\texorpdfstring{0) Setup}{0)  Setup}}\label{setup}
+
+Here we define a few classes and functions that will be used throughout
+the notebook.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{k+kn}{import} \PY{n+nn}{gym} \PY{c+c1}{\PYZsh{} OpenAI gym for representing environments}
+         \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+         
+         \PY{k+kn}{from} \PY{n+nn}{spinup} \PY{k}{import} \PY{n}{ppo} \PY{c+c1}{\PYZsh{} OpenAI\PYZsq{}s implementation algorithm}
+         
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{time}
+         \PY{k+kn}{import} \PY{n+nn}{os}
+         
+         \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{timedelta}
+         \PY{k+kn}{from} \PY{n+nn}{copy} \PY{k}{import} \PY{n}{deepcopy}
+\end{Verbatim}
+
+
+    \subsection{0.1) Defining the RLAgent
+Class}\label{defining-the-rlagent-class}
+
+To reduce duplication of code, I will use a parent RLAgent class. Every
+agent will have the same set of functions, although some will be
+overwritten (especially \texttt{build\_model()}, \texttt{train()}, and
+\texttt{act()}).
+
+back to toc
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{k}{class} \PY{n+nc}{RLAgent}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{state\PYZus{}size}\PY{p}{,} \PY{n}{action\PYZus{}size}\PY{p}{,} \PY{n}{discount\PYZus{}factor}\PY{o}{=}\PY{l+m+mf}{0.99}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                 
+                 \PY{c+c1}{\PYZsh{} randomization}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{random\PYZus{}state} \PY{o}{=} \PY{n}{random\PYZus{}state}        
+                 \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{random\PYZus{}state}\PY{p}{)}  
+                 
+                 \PY{c+c1}{\PYZsh{} environment parameters}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{state\PYZus{}size} \PY{o}{=} \PY{n}{state\PYZus{}size}       
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{action\PYZus{}size} \PY{o}{=} \PY{n}{action\PYZus{}size}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{discount\PYZus{}factor} \PY{o}{=} \PY{n}{discount\PYZus{}factor}
+                     
+                 \PY{c+c1}{\PYZsh{} model parameters}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{n}{learning\PYZus{}rate}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{build\PYZus{}model}\PY{p}{(}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} memory of states, actions and rewards}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}states}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}actions}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}rewards} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}        
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{episode}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{episode\PYZus{}start} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}
+                 
+             \PY{k}{def} \PY{n+nf}{build\PYZus{}model}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:} 
+                 \PY{c+c1}{\PYZsh{} initialize policy (e.g. neural network)}
+                 \PY{k}{pass}
+             
+             \PY{k}{def} \PY{n+nf}{act}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{state}\PY{p}{)}\PY{p}{:} 
+                 \PY{c+c1}{\PYZsh{} choose action}
+                 \PY{k}{pass}
+             
+             \PY{k}{def} \PY{n+nf}{discount\PYZus{}rewards}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{rewards}\PY{p}{)}\PY{p}{:}           
+                 \PY{c+c1}{\PYZsh{} compute discounted return (aka reward from this point onwards) by going backwards}
+                 \PY{n}{returns} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n}{return\PYZus{}so\PYZus{}far} \PY{o}{=} \PY{l+m+mf}{0.0}        
+                 \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n}{rewards}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                     \PY{n}{return\PYZus{}so\PYZus{}far} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{discount\PYZus{}factor} \PY{o}{*} \PY{n}{return\PYZus{}so\PYZus{}far} \PY{o}{+} \PY{n}{r}
+                     \PY{n}{returns}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{return\PYZus{}so\PYZus{}far}\PY{p}{)}            
+                 \PY{n}{returns} \PY{o}{=} \PY{n}{returns}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}         
+                 \PY{k}{return} \PY{n}{returns}   
+             
+             \PY{k}{def} \PY{n+nf}{remember}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{state}\PY{p}{,} \PY{n}{action}\PY{p}{,} \PY{n}{reward}\PY{p}{,} \PY{n}{done}\PY{p}{)}\PY{p}{:}  
+                 \PY{c+c1}{\PYZsh{} store experience in memory}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}states}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{state}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}rewards}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{reward}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}actions}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{action}\PY{p}{)}
+                     
+                 \PY{k}{if} \PY{n}{done}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{} discount rewards for the latest episode}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}rewards}\PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{episode\PYZus{}start}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{discount\PYZus{}rewards}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}rewards}\PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{episode\PYZus{}start}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+                     
+                     \PY{c+c1}{\PYZsh{} update counter}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{episode} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{episode\PYZus{}start} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}rewards}\PY{p}{)}
+                     
+             \PY{k}{def} \PY{n+nf}{train}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{pass}
+\end{Verbatim}
+
+
+    \subsection{0.2 Training function}\label{training-function}
+
+This function will train agents in batches of episodes in a chosen
+environment. After each batch, the agent will update its model based on
+its experience. The performance across batches will be plotted, and
+options are available for reporting periodic performance or showing
+periodic animations of behavior.
+
+back to toc
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{k}{def} \PY{n+nf}{train\PYZus{}batches}\PY{p}{(}\PY{n}{env}\PY{p}{,} \PY{n}{agent}\PY{p}{,} \PY{n}{num\PYZus{}batches}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{max\PYZus{}steps}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{inf}\PY{p}{,} 
+                           \PY{n}{report\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{animate\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{process\PYZus{}state}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{process\PYZus{}action}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{make\PYZus{}plot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}    
+             
+             \PY{k}{if} \PY{n}{process\PYZus{}state} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:} \PY{c+c1}{\PYZsh{} default: do not process the states or actions}
+                 \PY{n}{process\PYZus{}state} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{,} \PY{n}{reset}\PY{p}{:} \PY{n}{x}
+             \PY{k}{if} \PY{n}{process\PYZus{}action} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:} 
+                 \PY{n}{process\PYZus{}action} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}
+                 
+             \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}    
+             \PY{n}{training\PYZus{}time} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}    
+             \PY{k}{try}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{batch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}batches}\PY{p}{)}\PY{p}{:}        
+                     \PY{n}{score} \PY{o}{=} \PY{l+m+mf}{0.0}        
+         
+                     \PY{k}{for} \PY{n}{episode} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{:}  
+                         \PY{n}{animate} \PY{o}{=} \PY{p}{(}\PY{n}{animate\PYZus{}every}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)} \PY{o+ow}{and} \PY{p}{(}\PY{p}{(}\PY{n}{batch}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{animate\PYZus{}every}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)} \PY{o+ow}{and} \PY{n}{episode}\PY{o}{==}\PY{l+m+mi}{0} 
+         
+                         \PY{n}{state} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{reset}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} restart environment}
+                         \PY{n}{state} \PY{o}{=} \PY{n}{process\PYZus{}state}\PY{p}{(}\PY{n}{state}\PY{p}{,} \PY{k+kc}{True}\PY{p}{)} 
+                         \PY{n}{done} \PY{o}{=} \PY{k+kc}{False}
+                         \PY{n}{t} \PY{o}{=} \PY{l+m+mi}{0}
+         
+                         \PY{k}{while} \PY{o+ow}{not} \PY{n}{done}\PY{p}{:}
+                             \PY{k}{if} \PY{n}{animate}\PY{p}{:}
+                                 \PY{n}{env}\PY{o}{.}\PY{n}{render}\PY{p}{(}\PY{p}{)}
+         
+                             \PY{n}{action} \PY{o}{=} \PY{n}{agent}\PY{o}{.}\PY{n}{act}\PY{p}{(}\PY{n}{state}\PY{p}{)}  \PY{c+c1}{\PYZsh{} choose action }
+                             \PY{n}{action\PYZus{}p} \PY{o}{=} \PY{n}{process\PYZus{}action}\PY{p}{(}\PY{n}{action}\PY{p}{)}
+                             \PY{n}{next\PYZus{}state}\PY{p}{,} \PY{n}{reward}\PY{p}{,} \PY{n}{done}\PY{p}{,} \PY{n}{info} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{n}{action\PYZus{}p}\PY{p}{)} \PY{c+c1}{\PYZsh{} apply action to env}
+         
+                             \PY{n}{t} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                             \PY{k}{if} \PY{n}{t}\PY{o}{==}\PY{n}{max\PYZus{}steps}\PY{p}{:} 
+                                 \PY{n}{done} \PY{o}{=} \PY{k+kc}{True}
+         
+                             \PY{n}{agent}\PY{o}{.}\PY{n}{remember}\PY{p}{(}\PY{n}{state}\PY{p}{,} \PY{n}{action}\PY{p}{,} \PY{n}{reward}\PY{p}{,} \PY{n}{done}\PY{p}{)} \PY{c+c1}{\PYZsh{} store in memory}
+         
+                             \PY{n}{score} \PY{o}{+}\PY{o}{=} \PY{n}{reward}
+                             \PY{n}{state} \PY{o}{=} \PY{n}{process\PYZus{}state}\PY{p}{(}\PY{n}{next\PYZus{}state}\PY{p}{,} \PY{k+kc}{False}\PY{p}{)}
+         
+                         \PY{k}{if} \PY{n}{animate}\PY{p}{:}
+                             \PY{n}{time}\PY{o}{.}\PY{n}{sleep}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{)}
+                             \PY{n}{env}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+         
+                     \PY{n}{train\PYZus{}start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{agent}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} train after completing a whole a batch}
+                     \PY{n}{training\PYZus{}time} \PY{o}{+}\PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{train\PYZus{}start}
+                     
+                     \PY{n}{score} \PY{o}{/}\PY{o}{=} \PY{n}{batch\PYZus{}size}
+                     \PY{n}{scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{score}\PY{p}{)}
+                     \PY{k}{if} \PY{p}{(}\PY{n}{report\PYZus{}every}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)} \PY{o+ow}{and} \PY{p}{(}\PY{n}{batch}\PY{o}{==}\PY{l+m+mi}{0} \PY{o+ow}{or} \PY{p}{(}\PY{p}{(}\PY{n}{batch}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{report\PYZus{}every} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{dt} \PY{o}{=} \PY{n}{timedelta}\PY{p}{(}\PY{n}{seconds}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{p}{)}
+                         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{] batch: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, score: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{dt}\PY{p}{)} \PY{p}{,}\PY{n}{batch}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{score}\PY{p}{)}\PY{p}{)}
+                 
+                 \PY{k}{if} \PY{n}{make\PYZus{}plot}\PY{p}{:}
+                     \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{num\PYZus{}batches}\PY{p}{)}\PY{p}{,} \PY{n}{scores}\PY{p}{)}
+                     \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Batches (}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ episodes each)}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{batch\PYZus{}size}\PY{p}{)}
+                     \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score per episode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{finally}\PY{p}{:}
+                 \PY{n}{total\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{start}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Completed }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ batches in }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ seconds (}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{ of time spent training)}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{batch}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{total\PYZus{}time}\PY{p}{,} \PY{l+m+mi}{100}\PY{o}{*}\PY{n}{training\PYZus{}time}\PY{o}{/}\PY{n}{total\PYZus{}time}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{env}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+             \PY{k}{return} \PY{n}{scores}
+\end{Verbatim}
+
+
+    \subsection{0.3) A Random Agent}\label{a-random-agent}
+
+This agent will behave entirely randomly in any environment. It doesn't
+need a policy model or \texttt{train} function.
+
+back to toc
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{class} \PY{n+nc}{RandomAgent}\PY{p}{(}\PY{n}{RLAgent}\PY{p}{)}\PY{p}{:}
+            
+            \PY{k}{def} \PY{n+nf}{act}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{state}\PY{p}{)}\PY{p}{:}        
+                \PY{c+c1}{\PYZsh{} random action}
+                \PY{n}{action} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{action\PYZus{}size}\PY{p}{)}
+                \PY{k}{return} \PY{n}{action}   
+\end{Verbatim}
+
+
+    \subsubsection{Performance on the CartPole
+Task}\label{performance-on-the-cartpole-task}
+
+A simple task with 4 states and 1 (binary) action.
+
+First a simple loop to demonstrate usage of OpenAI gym and the class
+structure.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{env} \PY{o}{=} \PY{n}{gym}\PY{o}{.}\PY{n}{make}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CartPole\PYZhy{}v0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} load environment}
+        \PY{n}{agent} \PY{o}{=} \PY{n}{RandomAgent}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{observation\PYZus{}space}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{env}\PY{o}{.}\PY{n}{action\PYZus{}space}\PY{o}{.}\PY{n}{n}\PY{p}{)} \PY{c+c1}{\PYZsh{} create agent}
+        
+        \PY{k}{for} \PY{n}{episode} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+            \PY{n}{state} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{reset}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} restart environment}
+            \PY{n}{done} \PY{o}{=} \PY{k+kc}{False}
+            
+            \PY{k}{while} \PY{o+ow}{not} \PY{n}{done}\PY{p}{:}
+                \PY{n}{action} \PY{o}{=} \PY{n}{agent}\PY{o}{.}\PY{n}{act}\PY{p}{(}\PY{n}{state}\PY{p}{)}  \PY{c+c1}{\PYZsh{} choose action         }
+                \PY{n}{next\PYZus{}state}\PY{p}{,} \PY{n}{reward}\PY{p}{,} \PY{n}{done}\PY{p}{,} \PY{n}{info} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{n}{action}\PY{p}{)} \PY{c+c1}{\PYZsh{} apply action to env        }
+                \PY{n}{agent}\PY{o}{.}\PY{n}{remember}\PY{p}{(}\PY{n}{state}\PY{p}{,} \PY{n}{action}\PY{p}{,} \PY{n}{reward}\PY{p}{,} \PY{n}{done}\PY{p}{)} \PY{c+c1}{\PYZsh{} store experience in memory        }
+                \PY{n}{state} \PY{o}{=} \PY{n}{next\PYZus{}state}
+                
+            \PY{n}{agent}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} train after each episode (or batch of episodes)}
+            
+\end{Verbatim}
+
+
+    Demonstrating performance of a RandomAgent
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{env} \PY{o}{=} \PY{n}{gym}\PY{o}{.}\PY{n}{make}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CartPole\PYZhy{}v0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{unwrapped} \PY{c+c1}{\PYZsh{} remove TimeLimit wrapper}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{States:  }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{observation\PYZus{}space}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actions: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{action\PYZus{}space}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{seed} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{env}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{seed}\PY{p}{)}
+        
+        \PY{n}{agent} \PY{o}{=} \PY{n}{RandomAgent}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{observation\PYZus{}space}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{env}\PY{o}{.}\PY{n}{action\PYZus{}space}\PY{o}{.}\PY{n}{n}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{seed}\PY{p}{)}
+        
+        \PY{n}{train\PYZus{}batches}\PY{p}{(}\PY{n}{env}\PY{p}{,} \PY{n}{agent}\PY{p}{,} \PY{n}{num\PYZus{}batches}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{max\PYZus{}steps}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{report\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{animate\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+States:  Box(4,)
+Actions: Discrete(2)
+[0:00:00] batch: 1, score: 14
+[0:00:01] batch: 100, score: 12
+[0:00:02] batch: 200, score: 18
+[0:00:03] batch: 300, score: 14
+[0:00:05] batch: 400, score: 59
+[0:00:06] batch: 500, score: 14
+[0:00:07] batch: 600, score: 25
+[0:00:08] batch: 700, score: 17
+[0:00:09] batch: 800, score: 23
+[0:00:10] batch: 900, score: 21
+[0:00:11] batch: 1000, score: 35
+Completed 1000 batches in 11 seconds (0\% of time spent training)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{ 1) REINFORCE: simplest implementation (no
+TensorFlow)}\label{reinforce-simplest-implementation-no-tensorflow}
+
+REINFORCE does not require a neural network, but can use any
+differentiable policy to convert states into actions.
+
+For educational purposes, let's look at a task with a simple binary
+output (e.g. move left vs move right). For this problem, we can use a
+logistic regression classifier for our policy representation. If we also
+restrict our problem to have two continuous states, we can easily
+simplify visualization of the learning process.
+
+back to toc
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} logistic\PYZhy{}regression based binary policy}
+         
+         \PY{k}{class} \PY{n+nc}{ReinforceBinaryLR}\PY{p}{(}\PY{n}{RLAgent}\PY{p}{)}\PY{p}{:}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{state\PYZus{}size}\PY{p}{,} \PY{n}{action\PYZus{}size}\PY{p}{,} \PY{n}{discount\PYZus{}factor}\PY{o}{=}\PY{l+m+mf}{0.99}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                 
+                 \PY{c+c1}{\PYZsh{} action space must be binary}
+                 \PY{k}{assert} \PY{n}{action\PYZus{}size} \PY{o}{==} \PY{l+m+mi}{2}         
+                 \PY{n+nb}{super}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n}{state\PYZus{}size}\PY{p}{,} \PY{n}{action\PYZus{}size}\PY{p}{,} \PY{n}{discount\PYZus{}factor}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{build\PYZus{}model}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}        
+                 \PY{c+c1}{\PYZsh{} initialize weights of a logistic regression classifier (a \PYZdq{}single neuron\PYZdq{} network!)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{weights} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{state\PYZus{}size}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bias} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                     
+             \PY{k}{def} \PY{n+nf}{act}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{state}\PY{p}{)}\PY{p}{:} 
+                 \PY{c+c1}{\PYZsh{} sample action using output probabilities of classifier}
+                 \PY{n}{logit} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{weights}\PY{p}{,} \PY{n}{state}\PY{p}{)} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bias}
+                 \PY{n}{p\PYZus{}action} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{logit}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{action} \PY{o}{=} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{p\PYZus{}action} \PY{o}{\PYZgt{}} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{p}{)} \PY{k}{else} \PY{l+m+mi}{0}
+                 \PY{k}{return} \PY{n}{action}
+             
+             \PY{k}{def} \PY{n+nf}{train}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} normalize rewards}
+                 \PY{n}{returns} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}rewards}\PY{p}{)}        
+                 \PY{n}{returns} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{returns}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{returns}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{1}\PY{p}{:}
+                     \PY{n}{returns} \PY{o}{/}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{returns}\PY{p}{)}
+                 
+                 \PY{n}{states} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}states}\PY{p}{)}
+                 \PY{n}{actions} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}actions}\PY{p}{)}        
+                         
+                 \PY{c+c1}{\PYZsh{} action probabilities }
+                 \PY{n}{predictions} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{states}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{weights}\PY{p}{)} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bias}\PY{p}{)}\PY{p}{)}\PY{p}{)}        
+                 
+                 \PY{c+c1}{\PYZsh{} compute gradient wrt weights using X * (Y\PYZhy{}Yhat) \PYZhy{}\PYZhy{} but weighted by the returns/advantages        }
+                 \PY{n}{states} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{states}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{states}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} append ones for bias}
+                 \PY{n}{gradient} \PY{o}{=} \PY{n}{states} \PY{o}{*} \PY{p}{(}\PY{n}{actions}\PY{o}{\PYZhy{}}\PY{n}{predictions}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{gradient} \PY{o}{*}\PY{o}{=} \PY{n}{returns}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{gradient} \PY{o}{=} \PY{n}{gradient}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} move up the gradient}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bias}    \PY{o}{+}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{learning\PYZus{}rate}\PY{o}{*}\PY{n}{gradient}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{weights} \PY{o}{+}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{learning\PYZus{}rate}\PY{o}{*}\PY{n}{gradient}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+                                     
+                 \PY{c+c1}{\PYZsh{} reset memory}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{episode}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{episode\PYZus{}start} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}states}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}actions}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}rewards} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}        
+             
+\end{Verbatim}
+
+
+    \subsubsection{1.1) Performance on
+CartPole}\label{performance-on-cartpole}
+
+back to toc
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} example run CartPole with animation}
+         \PY{n}{env} \PY{o}{=} \PY{n}{gym}\PY{o}{.}\PY{n}{make}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CartPole\PYZhy{}v0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{unwrapped} \PY{c+c1}{\PYZsh{} remove TimeLimit wrapper}
+         \PY{c+c1}{\PYZsh{} env = gym.wrappers.Monitor(env, \PYZdq{}recording\PYZdq{}) \PYZsh{} include this line to save animations to video folder}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{States:  }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{observation\PYZus{}space}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actions: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{action\PYZus{}space}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{seed} \PY{o}{=} \PY{l+m+mi}{2018}
+         \PY{n}{env}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{seed}\PY{p}{)}
+         
+         \PY{n}{agent} \PY{o}{=} \PY{n}{ReinforceBinaryLR}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{observation\PYZus{}space}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{env}\PY{o}{.}\PY{n}{action\PYZus{}space}\PY{o}{.}\PY{n}{n}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{seed}\PY{p}{)}
+         
+         \PY{n}{train\PYZus{}batches}\PY{p}{(}\PY{n}{env}\PY{p}{,} \PY{n}{agent}\PY{p}{,} \PY{n}{num\PYZus{}batches}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{max\PYZus{}steps}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{report\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{animate\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+States:  Box(4,)
+Actions: Discrete(2)
+[0:00:00] batch: 1, score: 11
+[0:00:01] batch: 10, score: 13
+[0:00:02] batch: 20, score: 13
+[0:00:03] batch: 30, score: 18
+[0:00:05] batch: 40, score: 36
+[0:00:06] batch: 50, score: 64
+[0:00:09] batch: 60, score: 39
+[0:00:10] batch: 70, score: 146
+[0:00:14] batch: 80, score: 65
+[0:00:18] batch: 90, score: 175
+[0:00:30] batch: 100, score: 288
+Completed 100 batches in 29 seconds (0\% of time spent training)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{1.2) Policy gradient has high
+variance}\label{policy-gradient-has-high-variance}
+
+Let's see how much the algorithm varies for different random seeds.
+
+back to toc
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} loop}
+         \PY{n}{num\PYZus{}batches} \PY{o}{=} \PY{l+m+mi}{300}
+         \PY{n}{num\PYZus{}runs} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{all\PYZus{}scores} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{num\PYZus{}batches}\PY{p}{,} \PY{n}{num\PYZus{}runs}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{env} \PY{o}{=} \PY{n}{gym}\PY{o}{.}\PY{n}{make}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CartPole\PYZhy{}v0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{unwrapped} \PY{c+c1}{\PYZsh{} remove TimeLimit wrapper}
+         \PY{n}{agent} \PY{o}{=} \PY{n}{ReinforceBinaryLR}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{observation\PYZus{}space}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{env}\PY{o}{.}\PY{n}{action\PYZus{}space}\PY{o}{.}\PY{n}{n}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}runs}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Run }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} reset seed/agent}
+             \PY{n}{env}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{i}\PY{p}{)}           
+             \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+             \PY{n}{agent}\PY{o}{.}\PY{n}{random\PYZus{}state} \PY{o}{=} \PY{n}{i}
+             \PY{n}{agent}\PY{o}{.}\PY{n}{build\PYZus{}model}\PY{p}{(}\PY{p}{)}    
+             
+             \PY{n}{all\PYZus{}scores}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}  \PY{o}{=} \PY{n}{train\PYZus{}batches}\PY{p}{(}\PY{n}{env}\PY{p}{,} \PY{n}{agent}\PY{p}{,} \PY{n}{num\PYZus{}batches}\PY{o}{=}\PY{n}{num\PYZus{}batches}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{max\PYZus{}steps}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Complete!}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{means} \PY{o}{=} \PY{n}{all\PYZus{}scores}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{stds} \PY{o}{=} \PY{n}{all\PYZus{}scores}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{batches} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{num\PYZus{}batches}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{batches}\PY{p}{,} \PY{n}{means}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{fill\PYZus{}between}\PY{p}{(}\PY{n}{batches}\PY{p}{,} \PY{n}{means}\PY{o}{\PYZhy{}}\PY{n}{stds}\PY{p}{,} \PY{n}{means}\PY{o}{+}\PY{n}{stds}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score per episode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Batches}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Run 1
+Completed 300 batches in 7 seconds (9\% of time spent training)
+Run 2
+Completed 300 batches in 2 seconds (10\% of time spent training)
+Run 3
+Completed 300 batches in 4 seconds (9\% of time spent training)
+Run 4
+Completed 300 batches in 3 seconds (9\% of time spent training)
+Run 5
+Completed 300 batches in 5 seconds (9\% of time spent training)
+Run 6
+Completed 300 batches in 9 seconds (9\% of time spent training)
+Run 7
+Completed 300 batches in 3 seconds (10\% of time spent training)
+Run 8
+Completed 300 batches in 6 seconds (9\% of time spent training)
+Run 9
+Completed 300 batches in 1 seconds (10\% of time spent training)
+Run 10
+Completed 300 batches in 3 seconds (9\% of time spent training)
+Complete!
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{2) REINFORCE with a deep policy network
+(Tensorflow)}\label{reinforce-with-a-deep-policy-network-tensorflow}
+
+A deep-network policy gradient agent, which works with continuous state
+space and discrete actions.
+
+back to toc
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{class} \PY{n+nc}{ReinforceDeep}\PY{p}{(}\PY{n}{RLAgent}\PY{p}{)}\PY{p}{:}
+            
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{state\PYZus{}size}\PY{p}{,} \PY{n}{action\PYZus{}size}\PY{p}{,} \PY{n}{discount\PYZus{}factor}\PY{o}{=}\PY{l+m+mf}{0.99}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{hidden\PYZus{}dims}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{relu}\PY{p}{,}
+                         \PY{n}{choices}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}   
+                
+                \PY{c+c1}{\PYZsh{} neural net parameters}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hidden\PYZus{}dims} \PY{o}{=} \PY{n}{hidden\PYZus{}dims}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{activation} \PY{o}{=} \PY{n}{activation}
+                
+                \PY{c+c1}{\PYZsh{} only need one output unit if binary}
+                \PY{k}{if} \PY{n}{action\PYZus{}size}\PY{o}{==}\PY{l+m+mi}{2}\PY{p}{:}
+                    \PY{n}{action\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{1}
+                
+                \PY{n+nb}{super}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n}{state\PYZus{}size}\PY{p}{,} \PY{n}{action\PYZus{}size}\PY{p}{,} \PY{n}{discount\PYZus{}factor}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{p}{)}
+               
+                
+            \PY{k}{def} \PY{n+nf}{dense\PYZus{}nn}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{inputs}\PY{p}{,} \PY{n}{hidden\PYZus{}dims}\PY{p}{,} \PY{n}{output\PYZus{}dim}\PY{p}{,} \PY{n}{activation}\PY{p}{,} \PY{n}{name}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} create a dense network with hidden layers}
+                \PY{n}{layers} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{n}{x} \PY{o}{=} \PY{n}{inputs}
+                \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{layers} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                    \PY{c+c1}{\PYZsh{} hidden layers}
+                    \PY{k}{for} \PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{size}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{hidden\PYZus{}dims}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{layers}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{n}{units}\PY{o}{=}\PY{n}{size}\PY{p}{,}
+                                                      \PY{n}{activation}\PY{o}{=}\PY{n}{activation}\PY{p}{,}
+                                                      \PY{n}{kernel\PYZus{}initializer}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{xavier\PYZus{}initializer}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                                                      \PY{n}{name}\PY{o}{=}\PY{n}{name}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}l}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                        \PY{n}{x} \PY{o}{=} \PY{n}{layers}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                    
+                    \PY{c+c1}{\PYZsh{} output layer (no activation)}
+                    \PY{n}{layers}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{n}{units}\PY{o}{=}\PY{n}{output\PYZus{}dim}\PY{p}{,}
+                                                  \PY{n}{kernel\PYZus{}initializer}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{xavier\PYZus{}initializer}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                                                  \PY{n}{name}\PY{o}{=}\PY{n}{name}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}l}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hidden\PYZus{}dims}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{output} \PY{o}{=} \PY{n}{layers}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                    
+                \PY{k}{return} \PY{n}{output}\PY{p}{,} \PY{n}{layers}            
+                
+            \PY{k}{def} \PY{n+nf}{build\PYZus{}model}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{n}{tf}\PY{o}{.}\PY{n}{reset\PYZus{}default\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{random\PYZus{}state} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                    \PY{n}{tf}\PY{o}{.}\PY{n}{set\PYZus{}random\PYZus{}seed}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{random\PYZus{}state}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} input placeholders }
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{states}  \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{k+kc}{None}\PY{p}{,}\PY{p}{)} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{state\PYZus{}size}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}        
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{actions} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{int32}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{k+kc}{None}\PY{p}{,}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{action}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{returns} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{k+kc}{None}\PY{p}{,}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{return}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} build network}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{pi}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{pi\PYZus{}layers} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dense\PYZus{}nn}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{states}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hidden\PYZus{}dims}\PY{p}{,} 
+                                                        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{action\PYZus{}size}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{activation}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pi\PYZus{}network}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                        
+                \PY{c+c1}{\PYZsh{} sample actions using multinomial (softmax)     }
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{action\PYZus{}size}\PY{o}{\PYZgt{}}\PY{l+m+mi}{1}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sampled\PYZus{}actions} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{multinomial}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{pi}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                \PY{k}{else}\PY{p}{:} \PY{c+c1}{\PYZsh{} or sigmoid if binary}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sampled\PYZus{}actions} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{greater}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{sigmoid}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}uniform}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} advantage function = how \PYZdq{}good\PYZdq{} each action was compared to average}
+                \PY{c+c1}{\PYZsh{} for less variance, replace this with a critic!}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{advantages} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{identity}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{returns}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} loss function}
+                \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pi\PYZus{}optimize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                    
+                    \PY{c+c1}{\PYZsh{} negative log probabilities         }
+                    \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{action\PYZus{}size}\PY{o}{\PYZgt{}}\PY{l+m+mi}{1}\PY{p}{:}
+                        \PY{n}{log\PYZus{}probs} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{sparse\PYZus{}softmax\PYZus{}cross\PYZus{}entropy\PYZus{}with\PYZus{}logits}\PY{p}{(}\PY{n}{logits}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{pi}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{actions}\PY{p}{)}
+                    \PY{k}{else}\PY{p}{:} \PY{c+c1}{\PYZsh{} binary}
+                        \PY{n}{log\PYZus{}probs} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{sigmoid\PYZus{}cross\PYZus{}entropy\PYZus{}with\PYZus{}logits}\PY{p}{(}\PY{n}{logits}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{to\PYZus{}float}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{actions}\PY{p}{)}\PY{p}{)}
+                    
+                    \PY{c+c1}{\PYZsh{} multiply (weight) by advantages}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{loss\PYZus{}pi} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{stop\PYZus{}gradient}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{advantages}\PY{p}{)}\PY{o}{*}\PY{n}{log\PYZus{}probs}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss\PYZus{}pi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}            
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{optim\PYZus{}pi} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{AdamOptimizer}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{learning\PYZus{}rate}\PY{p}{)}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{loss\PYZus{}pi}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam\PYZus{}optim\PYZus{}pi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} session and train ops}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{train\PYZus{}ops} \PY{o}{=} \PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{optim\PYZus{}pi}\PY{p}{]}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sess} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}\PY{p}{)}    
+                
+            
+            \PY{k}{def} \PY{n+nf}{describe\PYZus{}model}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{States:  }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{state\PYZus{}size}\PY{p}{)}\PY{p}{)}
+                
+                \PY{n}{totalweights} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{k}{for} \PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{layer}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{pi\PYZus{}layers}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{nweights} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{prod}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{get\PYZus{}shape}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{as\PYZus{}list}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{layer}\PY{o}{.}\PY{n}{trainable\PYZus{}weights}\PY{p}{]}\PY{p}{)}
+                    \PY{n}{totalweights} \PY{o}{+}\PY{o}{=} \PY{n}{nweights}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Layer }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ units, }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ trainable weights}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{layer}\PY{o}{.}\PY{n}{units}\PY{p}{,} \PY{n}{nweights}\PY{p}{)}\PY{p}{)}
+                
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{} }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ total weights}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{totalweights}\PY{p}{)}
+                
+                \PY{n}{nactions} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{action\PYZus{}size} \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{action\PYZus{}size}\PY{o}{\PYZgt{}}\PY{l+m+mi}{1} \PY{k}{else} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{action\PYZus{}size}\PY{o}{+}\PY{l+m+mi}{1}        
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actions: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{nactions}\PY{p}{)}\PY{p}{)}
+                
+                
+            \PY{k}{def} \PY{n+nf}{act}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{state}\PY{p}{)}\PY{p}{:} 
+                \PY{c+c1}{\PYZsh{} sample action using a feedforward pass through the network}
+                \PY{n}{action} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sampled\PYZus{}actions}\PY{p}{,} \PY{p}{\PYZob{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{states}\PY{p}{:} \PY{p}{[}\PY{n}{state}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{int32}\PY{p}{)}        
+                \PY{k}{return} \PY{n}{action}
+            
+            \PY{k}{def} \PY{n+nf}{train}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+        
+                \PY{c+c1}{\PYZsh{} normalize rewards}
+                \PY{n}{returns} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}rewards}\PY{p}{)}        
+                \PY{n}{returns} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{returns}\PY{p}{)}
+                \PY{k}{if} \PY{n}{returns}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{1}\PY{p}{:}
+                    \PY{n}{returns} \PY{o}{/}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{returns}\PY{p}{)}
+                
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{train\PYZus{}ops}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{states}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}states}\PY{p}{)}\PY{p}{,}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{actions}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}actions}\PY{p}{)}\PY{p}{,}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{returns}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{returns}\PY{p}{)}
+                \PY{p}{\PYZcb{}}\PY{p}{)}
+                                    
+                \PY{c+c1}{\PYZsh{} reset memory}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{episode}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{episode\PYZus{}start} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}states}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}actions}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}rewards} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+\end{Verbatim}
+
+
+    \subsection{Better performance on
+CartPole}\label{better-performance-on-cartpole}
+
+First let's test our deep network model on CartPole!
+
+back to toc
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{env} \PY{o}{=} \PY{n}{gym}\PY{o}{.}\PY{n}{make}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CartPole\PYZhy{}v0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{unwrapped} \PY{c+c1}{\PYZsh{} remove TimeLimit wrapper}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{States:  }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{observation\PYZus{}space}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actions: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{action\PYZus{}space}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{hidden\PYZus{}dims} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}
+         \PY{n}{seed} \PY{o}{=} \PY{l+m+mi}{201}
+         \PY{n}{env}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{seed}\PY{p}{)}
+         \PY{n}{agent} \PY{o}{=} \PY{n}{ReinforceDeep}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{observation\PYZus{}space}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{hidden\PYZus{}dims}\PY{o}{=}\PY{n}{hidden\PYZus{}dims}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{seed}\PY{p}{)}
+         \PY{n}{agent}\PY{o}{.}\PY{n}{describe\PYZus{}model}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{train\PYZus{}batches}\PY{p}{(}\PY{n}{env}\PY{p}{,} \PY{n}{agent}\PY{p}{,} \PY{n}{num\PYZus{}batches}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{max\PYZus{}steps}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{report\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+         \PY{n}{agent}\PY{o}{.}\PY{n}{sess}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+States:  Box(4,)
+Actions: Discrete(2)
+States:  (4,)
+Layer 0: 8 units, 40 trainable weights
+Layer 1: 1 units, 9 trainable weights
+---------------> 49 total weights
+Actions: 2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} loop}
+         \PY{n}{num\PYZus{}batches} \PY{o}{=} \PY{l+m+mi}{300}
+         \PY{n}{num\PYZus{}runs} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{all\PYZus{}scores} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{num\PYZus{}batches}\PY{p}{,} \PY{n}{num\PYZus{}runs}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{env} \PY{o}{=} \PY{n}{gym}\PY{o}{.}\PY{n}{make}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CartPole\PYZhy{}v0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{unwrapped} \PY{c+c1}{\PYZsh{} remove TimeLimit wrapper}
+         \PY{n}{hidden\PYZus{}dims} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}
+         \PY{n}{agent} \PY{o}{=} \PY{n}{ReinforceDeep}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{observation\PYZus{}space}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{hidden\PYZus{}dims}\PY{o}{=}\PY{n}{hidden\PYZus{}dims}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}runs}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Run }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} reset seed/agent}
+             \PY{n}{env}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{i}\PY{p}{)}           
+             \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+             \PY{n}{agent}\PY{o}{.}\PY{n}{random\PYZus{}state} \PY{o}{=} \PY{n}{i}
+             \PY{n}{agent}\PY{o}{.}\PY{n}{build\PYZus{}model}\PY{p}{(}\PY{p}{)}    
+             
+             \PY{n}{all\PYZus{}scores}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}  \PY{o}{=} \PY{n}{train\PYZus{}batches}\PY{p}{(}\PY{n}{env}\PY{p}{,} \PY{n}{agent}\PY{p}{,} \PY{n}{num\PYZus{}batches}\PY{o}{=}\PY{n}{num\PYZus{}batches}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{max\PYZus{}steps}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}
+             \PY{n}{agent}\PY{o}{.}\PY{n}{sess}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Complete!}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{means} \PY{o}{=} \PY{n}{all\PYZus{}scores}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{stds} \PY{o}{=} \PY{n}{all\PYZus{}scores}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{batches} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{num\PYZus{}batches}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{batches}\PY{p}{,} \PY{n}{means}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{fill\PYZus{}between}\PY{p}{(}\PY{n}{batches}\PY{p}{,} \PY{n}{means}\PY{o}{\PYZhy{}}\PY{n}{stds}\PY{p}{,} \PY{n}{means}\PY{o}{+}\PY{n}{stds}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score per episode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Batches}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Run 1
+Completed 300 batches in 131 seconds (1\% of time spent training)
+Run 2
+Completed 300 batches in 135 seconds (1\% of time spent training)
+Run 3
+Completed 300 batches in 153 seconds (1\% of time spent training)
+Run 4
+Completed 300 batches in 150 seconds (1\% of time spent training)
+Run 5
+Completed 300 batches in 133 seconds (1\% of time spent training)
+Complete!
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Learning is faster than for the Logistic Regression agent, just by
+adding an 8-neuron hidden layer.
+
+(Notice that the fraction of time spent training is minimal -\/- most of
+it is spent processing trajectories through the environment. Future code
+should work on parallelizing this part: e.g. via
+https://gist.github.com/bamos/cedcc0165f2993f524fd839357b359cc )
+
+But can we solve harder tasks?
+
+    \subsubsection{Lunar Lander}\label{lunar-lander}
+
+A higher-dimensional task: 8 state dimensions, 4 actions
+
+back to toc
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{env} \PY{o}{=} \PY{n}{gym}\PY{o}{.}\PY{n}{make}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LunarLander\PYZhy{}v2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{States:  }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{observation\PYZus{}space}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actions: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{action\PYZus{}space}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{hidden\PYZus{}dims} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{]}
+         \PY{n}{seed} \PY{o}{=} \PY{l+m+mi}{2018}
+         \PY{n}{env}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{seed}\PY{p}{)}
+         \PY{n}{agent} \PY{o}{=} \PY{n}{ReinforceDeep}\PY{p}{(}\PY{n}{env}\PY{o}{.}\PY{n}{observation\PYZus{}space}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{env}\PY{o}{.}\PY{n}{action\PYZus{}space}\PY{o}{.}\PY{n}{n}\PY{p}{,} \PY{n}{hidden\PYZus{}dims}\PY{o}{=}\PY{n}{hidden\PYZus{}dims}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{seed}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}
+         \PY{n}{agent}\PY{o}{.}\PY{n}{describe\PYZus{}model}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{train\PYZus{}batches}\PY{p}{(}\PY{n}{env}\PY{p}{,} \PY{n}{agent}\PY{p}{,} \PY{n}{num\PYZus{}batches}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{max\PYZus{}steps}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{report\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{animate\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} agent.sess.close()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+States:  Box(8,)
+Actions: Discrete(4)
+States:  (8,)
+Layer 0: 32 units, 288 trainable weights
+Layer 1: 32 units, 1056 trainable weights
+Layer 2: 4 units, 132 trainable weights
+---------------> 1476 total weights
+Actions: 4
+[0:00:00] batch: 1, score: -186
+[0:00:19] batch: 50, score: -92
+[0:00:37] batch: 100, score: -134
+[0:01:00] batch: 150, score: -128
+[0:01:32] batch: 200, score: -56
+[0:02:17] batch: 250, score: -68
+[0:04:08] batch: 300, score: -51
+[0:07:20] batch: 350, score: 3
+[0:12:11] batch: 400, score: 18
+[0:16:31] batch: 450, score: 23
+[0:22:05] batch: 500, score: 24
+Completed 500 batches in 1325 seconds (0\% of time spent training)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} [-186.0576625665592,
+          -206.8621031972178,
+          -176.61959523150819,
+          -159.2959254534568,
+          -112.19707826612898,
+          -177.58061173311734,
+          -158.24666058299786,
+          -152.15427563980373,
+          -141.13156359969838,
+          -170.30172648556191,
+          -150.54971132677966,
+          -109.38365245470564,
+          -166.37707256175796,
+          -112.35394280373949,
+          -140.37524306927878,
+          -111.89119628791666,
+          -180.4833176876994,
+          -225.08598948615372,
+          -120.25717030099813,
+          -221.71231982916365,
+          -127.42661749376529,
+          -169.59656940582073,
+          -160.95231861428493,
+          -129.91051412964345,
+          -150.231914045293,
+          -113.53480430133789,
+          -98.80692303610317,
+          -114.70246886945736,
+          -160.1226867992445,
+          -99.51514167610819,
+          -147.19043189669767,
+          -116.57784507480127,
+          -121.33568516583611,
+          -103.15844908463846,
+          -154.40088024666335,
+          -190.40408220459835,
+          -120.69300724014984,
+          -163.25230569616517,
+          -130.66318806932802,
+          -121.09327015062722,
+          -131.21441489312645,
+          -148.10137704533724,
+          -132.03373449273533,
+          -146.5871052678055,
+          -126.17640922462797,
+          -149.67526001129562,
+          -111.98581787138392,
+          -150.23972283993285,
+          -132.00914855025175,
+          -92.45226077951034,
+          -109.34573460438521,
+          -140.1958518492251,
+          -109.79108845679093,
+          -157.84996193339578,
+          -103.23511297537634,
+          -134.89505669002006,
+          -136.18284059096814,
+          -79.70325185536738,
+          -93.28979506323547,
+          -115.41460126034572,
+          -128.7893603352267,
+          -145.28864144081416,
+          -125.72785982023306,
+          -107.49843735722413,
+          -129.01436105206466,
+          -115.11682324392378,
+          -154.79842575100372,
+          -103.86680273955817,
+          -138.65535773726938,
+          -98.80387534851344,
+          -92.98067318646352,
+          -149.0085034033571,
+          -156.8025758010833,
+          -109.27287968730006,
+          -127.57564115742369,
+          -144.67684671637093,
+          -161.77123903976337,
+          -129.26044194915727,
+          -126.46561417001358,
+          -111.55789346151319,
+          -123.23788992517466,
+          -154.40200326880853,
+          -125.73793245686807,
+          -141.63488310288213,
+          -112.11448521957678,
+          -133.79681484355032,
+          -153.2676815334145,
+          -110.29810207968771,
+          -101.25136396241365,
+          -148.8895027150917,
+          -120.67270461566787,
+          -126.64457424957857,
+          -85.45160909734098,
+          -137.74277886324205,
+          -107.85825073978233,
+          -85.49702630391266,
+          -108.72394700908316,
+          -105.92030053578898,
+          -138.85067933166425,
+          -134.86204404118672,
+          -114.46078871043338,
+          -95.89410292662775,
+          -125.98245200156983,
+          -93.27928671659001,
+          -113.3865784100155,
+          -88.6461794110564,
+          -95.53279381334129,
+          -120.35812940456519,
+          -87.6554633701758,
+          -99.2442970314204,
+          -77.80633014262379,
+          -97.48707674262786,
+          -128.41662320860837,
+          -124.53049888907438,
+          -103.19089941307644,
+          -144.32825950159128,
+          -110.70872368868902,
+          -97.50452363163765,
+          -73.43638197640065,
+          -82.48282001359124,
+          -100.08299364983785,
+          -107.36568705214233,
+          -99.87670523677055,
+          -77.04993071121511,
+          -85.36045930884691,
+          -116.20768631270957,
+          -41.352108393685924,
+          -82.56813952569875,
+          -94.57900312930404,
+          -94.61951678441123,
+          -134.5691104689848,
+          -123.8234086749377,
+          -80.13419973704808,
+          -122.50624861134102,
+          -105.0847620598087,
+          -97.2994213667252,
+          -84.18190187312825,
+          -170.70465460498485,
+          -96.45493160617036,
+          -66.60917872108614,
+          -114.68298124629345,
+          -65.21552319691416,
+          -95.08824714158686,
+          -99.21657960960377,
+          -71.99745441686936,
+          -92.41632325001748,
+          -107.44855257527283,
+          -87.43380468758835,
+          -72.62166723586179,
+          -128.55846766038331,
+          -99.85961849200343,
+          -100.46314308159856,
+          -115.21302638049232,
+          -120.24338164668534,
+          -75.76841268177222,
+          -69.48503196652494,
+          -84.77509885387201,
+          -81.66071700837064,
+          -76.9553535101783,
+          -85.40522225563328,
+          -91.70908723338952,
+          -94.53896218484395,
+          -113.48183408106172,
+          -118.66715926526331,
+          -70.72697522224067,
+          -65.12032723633705,
+          -76.26009919709553,
+          -65.18560158368354,
+          -56.65206878636167,
+          -112.53277459479827,
+          -78.6053454011844,
+          -58.19675015016217,
+          -65.48283467931071,
+          -89.16486368160278,
+          -81.24878947762107,
+          -66.41226002209464,
+          -90.32027748175469,
+          -82.73429248757236,
+          -91.35063082348884,
+          -63.84699109233564,
+          -72.59857411150499,
+          -59.11934432492351,
+          -66.03758857965184,
+          -48.399492917951065,
+          -50.657248015597865,
+          -62.66681944145171,
+          -62.79231474726258,
+          -56.26870938843133,
+          -85.89212755607338,
+          -76.91227346781282,
+          -66.39383373785327,
+          -70.38556289101666,
+          -57.82798637988439,
+          -86.02271971070813,
+          -63.597457386306395,
+          -100.10053526164495,
+          -79.66528004703684,
+          -68.01402424733953,
+          -89.89645736728684,
+          -56.17201162273356,
+          -68.93707130385386,
+          -47.43688396511112,
+          -116.05037035216758,
+          -52.08624443128988,
+          -54.75684954384003,
+          -54.91585269789374,
+          -47.661502394037655,
+          -57.84294317372502,
+          -52.42659789078014,
+          -102.4791421426481,
+          -126.7729465622504,
+          -119.82435271727323,
+          -45.89349716621918,
+          -102.32687230532605,
+          -54.41106070362779,
+          -22.40936961010383,
+          -95.68349635354409,
+          -27.594597929921814,
+          -47.329986630915315,
+          -48.21282521403084,
+          -46.53852848085368,
+          -56.7039866187399,
+          -31.95887782902423,
+          -54.90122962537174,
+          -42.96358562551306,
+          -44.891641034984254,
+          -45.27028233837808,
+          -81.85567315674021,
+          -58.38060054346239,
+          -61.43734416158012,
+          -31.35359070959454,
+          -34.64439036916981,
+          -42.459930486054404,
+          -30.797241522534886,
+          -35.76558250730165,
+          -45.040990831305514,
+          -51.382678465055506,
+          -38.07087397176437,
+          -51.35522959808338,
+          -35.872557844127485,
+          -69.38771197596905,
+          -53.887262530110796,
+          -17.734883006640064,
+          -41.13029710549592,
+          -69.12240579918787,
+          -65.49127695460155,
+          -30.09880580366604,
+          -14.624913079641027,
+          -18.89410543449574,
+          -68.0073107384453,
+          -27.73624646570454,
+          -45.82167484348475,
+          -17.51753114417965,
+          -47.966650020483456,
+          -83.84250120110057,
+          -25.868782902345174,
+          -42.34033014333269,
+          -45.733010275182,
+          -38.11654905036947,
+          -57.07721056534958,
+          -35.705809686407555,
+          -34.107416517291924,
+          -50.17057362883746,
+          -24.387890471993554,
+          -36.70689893682775,
+          -34.13224911239964,
+          -56.64687472086608,
+          -43.943091222905714,
+          -56.56097202989697,
+          -10.699344216728994,
+          -33.495812630635605,
+          -6.981044012427913,
+          -10.886114990855578,
+          -100.82118588764195,
+          -28.29127495446549,
+          -5.450292572797318,
+          -23.220452737165832,
+          -31.36123916477758,
+          -27.425398827681306,
+          -3.7401928765069186,
+          -27.03204643814977,
+          -22.165835820593664,
+          -52.23150897020622,
+          -20.472636400496445,
+          -47.028637601640455,
+          -51.50771011709578,
+          -34.200267807942275,
+          -25.126427128977628,
+          -5.7872358124373715,
+          -56.272540237471276,
+          -31.50662447123053,
+          -20.440046913268365,
+          -81.57607909535531,
+          -50.49858279638291,
+          -50.774466426866,
+          -66.63513069918096,
+          -90.54120308459086,
+          -70.90220577552044,
+          -84.12888407230787,
+          -51.04112427138414,
+          -23.274424871499555,
+          -48.64125394437517,
+          -35.408530252026964,
+          -62.852446336657124,
+          -7.774477222339013,
+          -49.328581545033735,
+          -17.953948979872298,
+          -3.5851746668762745,
+          -22.15922880844517,
+          -36.03795671878606,
+          -8.51928419506369,
+          -33.962466349966896,
+          -12.24360330458903,
+          -20.050075062164883,
+          -18.38238800394297,
+          -13.068786726342292,
+          -50.65101858533827,
+          -41.80354466689427,
+          -39.9862429834394,
+          -16.20256983053231,
+          -45.92228126433033,
+          -5.558845703708663,
+          -32.524827825714034,
+          -10.889940109932919,
+          -31.065861070289486,
+          -27.614188970045518,
+          -20.43937690948883,
+          -5.764912720909313,
+          -71.0255173110873,
+          10.215043811804193,
+          -1.1102858066048147,
+          -9.184179764110965,
+          3.50674955426297,
+          -9.828483411876089,
+          -6.839266728095941,
+          -12.694991326134236,
+          -0.9603447875221164,
+          -35.58971071141282,
+          -13.523734746337762,
+          -21.832680345790614,
+          -11.238583299932682,
+          -3.8382552708315956,
+          -7.833844972088208,
+          -37.6674451910973,
+          -45.036049389835675,
+          -1.9159115060681757,
+          -12.484764587170673,
+          -4.5628372208308985,
+          7.745406624038179,
+          3.8095982957852357,
+          -2.6918617410614063,
+          -39.79156667694569,
+          -9.091233840127734,
+          -12.166958863630121,
+          -3.824854954742733,
+          18.227340431036293,
+          -63.287931064870655,
+          -30.141417783823478,
+          7.008932270280283,
+          -56.64824643862788,
+          -11.659366387179347,
+          -16.15080618721897,
+          -44.25177355089672,
+          -25.818009123826975,
+          -17.257280351703216,
+          -8.527623280529438,
+          -76.06238002988509,
+          -32.198195404248324,
+          -6.737369849561503,
+          -41.59080695533208,
+          -17.68323839908789,
+          -2.401378502316736,
+          -20.99186596725034,
+          -45.68189435454674,
+          -21.206374689686527,
+          -20.711649227339223,
+          -10.83710195566426,
+          -62.4747684276839,
+          -73.89799689609893,
+          9.190626244798262,
+          -16.711410718769002,
+          -21.85837315539332,
+          -8.112599358747753,
+          -8.491232483448602,
+          -24.374031680634637,
+          12.336380966685255,
+          3.8114461942108138,
+          -17.257498373065154,
+          -19.274119670788888,
+          -1.6530628404607313,
+          18.930602742355923,
+          -22.90400138329849,
+          -11.536628327896327,
+          5.617729111215926,
+          12.035752985693751,
+          -35.3192390202269,
+          6.835188641504104,
+          28.5305811235422,
+          -11.51783154702459,
+          18.260060612994113,
+          -46.420341463210384,
+          2.585776463623405,
+          -6.916741832497879,
+          -16.166291894472202,
+          -3.6722720666035236,
+          -22.340254434054977,
+          3.893666939290301,
+          -2.460123662818121,
+          17.895647013548604,
+          26.568091488355982,
+          22.849710824522894,
+          26.488920428085642,
+          12.984770456051129,
+          27.064333763074835,
+          5.835529467150255,
+          18.10006300569704,
+          23.57186777275215,
+          18.226091084706287,
+          -53.22887929700211,
+          -2.1441480475897903,
+          -2.8160952513726203,
+          -0.7926185287947234,
+          11.73974195495517,
+          9.297147266903355,
+          -4.962405360223144,
+          11.821848175658536,
+          4.246320462146295,
+          -17.417146490310785,
+          39.54706071754059,
+          24.810525012086792,
+          28.299334946471998,
+          23.753429409359974,
+          8.580501675452263,
+          14.184179828272388,
+          25.749638864356463,
+          17.20821936277914,
+          28.234338546952408,
+          20.162383039581197,
+          24.02689708704508,
+          9.832012819201362,
+          -6.945987304907149,
+          1.0616448882670995,
+          7.008224905501311,
+          44.537692160987,
+          -12.933551581507777,
+          23.167251645233744,
+          32.14296996000949,
+          18.890246953796876,
+          22.999901527386992,
+          23.599171064212335,
+          21.287479598081553,
+          -9.315299764079288,
+          15.60290529637312,
+          -22.360663283743456,
+          -13.122045272166961,
+          18.44984232931276,
+          46.246470794763425,
+          6.80574469213484,
+          10.288392294509727,
+          18.38469369152591,
+          -5.107406052580106,
+          25.15523399824274,
+          29.165528205814162,
+          16.638148774719117,
+          35.63364454969646,
+          45.65967258430594,
+          5.908499309685742,
+          15.747597009422396,
+          17.745762014575526,
+          7.263768882278818,
+          15.441053446146189,
+          29.702272424323116,
+          13.275269489502747,
+          29.501861289517773,
+          24.21543394702305,
+          24.132037261392426,
+          -0.11833123239353398,
+          58.278789060272786,
+          54.193579857406974,
+          7.935226619948582,
+          35.00876771343541,
+          41.71684728509379,
+          24.268651153438167,
+          -16.683804434069188,
+          42.81215209223395,
+          31.728015027013964,
+          43.26065776642063,
+          34.19632460246852,
+          16.093889321566355,
+          31.07999566787057,
+          5.6517569469936175,
+          33.93583924311902,
+          28.08497143235552,
+          23.477777250317597,
+          52.25471895497547,
+          49.6344917011229,
+          1.4558668644942727,
+          50.44630341430348,
+          18.855875620619162,
+          24.099014170058602]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Making steady progress after 500 batches, though I'm too impatient to
+wait longer...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} animate and save video!}
+         \PY{n}{env} \PY{o}{=} \PY{n}{gym}\PY{o}{.}\PY{n}{make}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LunarLander\PYZhy{}v2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{env} \PY{o}{=} \PY{n}{gym}\PY{o}{.}\PY{n}{wrappers}\PY{o}{.}\PY{n}{Monitor}\PY{p}{(}\PY{n}{env}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lunar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} include this line to save animations to video folder}
+         \PY{n}{train\PYZus{}batches}\PY{p}{(}\PY{n}{env}\PY{p}{,} \PY{n}{agent}\PY{p}{,} \PY{n}{num\PYZus{}batches}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{max\PYZus{}steps}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{report\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{animate\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0:01:20] batch: 1, score: 60
+Completed 1 batches in 80 seconds (0\% of time spent training)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} [60.449333219424624]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{ Pong from pixels using a
+CNN}\label{pong-from-pixels-using-a-cnn}
+
+Let's change the "dense\_nn" to a conv net for Pong.
+
+back to toc
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{class} \PY{n+nc}{ReinforceConv}\PY{p}{(}\PY{n}{ReinforceDeep}\PY{p}{)}\PY{p}{:}
+            
+            \PY{k}{def} \PY{n+nf}{dense\PYZus{}nn}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{inputs}\PY{p}{,} \PY{n}{hidden\PYZus{}dims}\PY{p}{,} \PY{n}{output\PYZus{}dim}\PY{p}{,} \PY{n}{activation}\PY{p}{,} \PY{n}{name}\PY{p}{)}\PY{p}{:}
+                
+                \PY{c+c1}{\PYZsh{} replace dense network with a convolutional network}
+                \PY{n}{layers} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{n}{x} \PY{o}{=} \PY{n}{inputs}
+                \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{layers} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                    \PY{c+c1}{\PYZsh{} hidden layers: interleave Conv and MaxPooling}
+                    \PY{k}{for} \PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{size}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{hidden\PYZus{}dims}\PY{p}{)}\PY{p}{:}
+                        
+                        \PY{n}{layers}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{Conv2D}\PY{p}{(}\PY{n}{filters}\PY{o}{=}\PY{n}{size}\PY{p}{,}
+                                                       \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}
+                                                       \PY{n}{activation}\PY{o}{=}\PY{n}{activation}\PY{p}{,}
+                                                       \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                                       \PY{n}{kernel\PYZus{}initializer}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{xavier\PYZus{}initializer}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                                                       \PY{n}{name}\PY{o}{=}\PY{n}{name}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}c}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                        \PY{n}{x} \PY{o}{=} \PY{n}{layers}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                        
+                        \PY{n}{layers}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{MaxPooling2D}\PY{p}{(}\PY{n}{pool\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}
+                                                             \PY{n}{strides}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}
+                                                             \PY{n}{name}\PY{o}{=}\PY{n}{name}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}p}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                        
+                        \PY{n}{x} \PY{o}{=} \PY{n}{layers}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                    
+                            
+                    \PY{c+c1}{\PYZsh{} output layer (no activation)}
+                    \PY{n}{layers}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{n}{units}\PY{o}{=}\PY{n}{output\PYZus{}dim}\PY{p}{,}
+                                                  \PY{n}{kernel\PYZus{}initializer}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{xavier\PYZus{}initializer}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                                                  \PY{n}{name}\PY{o}{=}\PY{n}{name}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}l}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hidden\PYZus{}dims}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{c+c1}{\PYZsh{} flatten first}
+                    \PY{n}{output} \PY{o}{=} \PY{n}{layers}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                    
+                \PY{k}{return} \PY{n}{output}\PY{p}{,} \PY{n}{layers}      
+            
+            \PY{k}{def} \PY{n+nf}{train}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+        
+                \PY{c+c1}{\PYZsh{} normalize rewards}
+                \PY{n}{returns} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}rewards}\PY{p}{)}        
+                \PY{n}{returns} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{returns}\PY{p}{)}
+                \PY{k}{if} \PY{n}{returns}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{1}\PY{p}{:}
+                    \PY{n}{returns} \PY{o}{/}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{returns}\PY{p}{)}
+                
+                \PY{n}{states} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{moveaxis}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dstack}\PY{p}{(}\PY{n}{agent}\PY{o}{.}\PY{n}{mem\PYZus{}states}\PY{p}{)}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+                
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{train\PYZus{}ops}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{states}\PY{p}{:} \PY{n}{states}\PY{p}{,}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{actions}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}actions}\PY{p}{)}\PY{p}{,}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{returns}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{returns}\PY{p}{)}
+                \PY{p}{\PYZcb{}}\PY{p}{)}
+                                    
+                \PY{c+c1}{\PYZsh{} reset memory}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{episode}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{episode\PYZus{}start} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}states}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}actions}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mem\PYZus{}rewards} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+                
+                
+            
+            \PY{k}{def} \PY{n+nf}{describe\PYZus{}model}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{States:  }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{state\PYZus{}size}\PY{p}{)}\PY{p}{)}
+                
+                \PY{n}{totalweights} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{k}{for} \PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{layer}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{pi\PYZus{}layers}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{nweights} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{prod}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{get\PYZus{}shape}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{as\PYZus{}list}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{layer}\PY{o}{.}\PY{n}{trainable\PYZus{}weights}\PY{p}{]}\PY{p}{)}
+                    \PY{n}{totalweights} \PY{o}{+}\PY{o}{=} \PY{n}{nweights}
+                    \PY{k}{if} \PY{n+nb}{hasattr}\PY{p}{(}\PY{n}{layer}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{filters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Layer }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ filters, }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ trainable weights}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{layer}\PY{o}{.}\PY{n}{filters}\PY{p}{,} \PY{n}{nweights}\PY{p}{)}\PY{p}{)}
+                    \PY{k}{elif} \PY{n+nb}{hasattr}\PY{p}{(}\PY{n}{layer}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Layer }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ units, }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ trainable weights}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{layer}\PY{o}{.}\PY{n}{units}\PY{p}{,} \PY{n}{nweights}\PY{p}{)}\PY{p}{)}
+                
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{} }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ total weights}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{totalweights}\PY{p}{)}
+                
+                \PY{n}{nactions} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{action\PYZus{}size} \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{action\PYZus{}size}\PY{o}{\PYZgt{}}\PY{l+m+mi}{1} \PY{k}{else} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{action\PYZus{}size}\PY{o}{+}\PY{l+m+mi}{1}        
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actions: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{nactions}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    Andrej Karpathy's version uses 200 fully connected units and takes 3
+days to train. http://karpathy.github.io/2016/05/31/rl/
+
+Can we do better with a CNN?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{env} \PY{o}{=} \PY{n}{gym}\PY{o}{.}\PY{n}{make}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pong\PYZhy{}v0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} we need to write a function that can process the input images}
+         \PY{k}{def} \PY{n+nf}{process\PYZus{}pong\PYZus{}state}\PY{p}{(}\PY{n}{state}\PY{p}{,} \PY{n}{reset}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{o+ow}{not} \PY{n+nb}{hasattr}\PY{p}{(}\PY{n}{process\PYZus{}pong\PYZus{}state}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prevI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o+ow}{or} \PY{n}{reset}\PY{p}{:}
+                 \PY{n}{process\PYZus{}pong\PYZus{}state}\PY{o}{.}\PY{n}{prevI} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{80}\PY{p}{,} \PY{l+m+mi}{80}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{I} \PY{o}{=} \PY{n}{deepcopy}\PY{p}{(}\PY{n}{state}\PY{p}{)}
+             \PY{n}{I} \PY{o}{=} \PY{n}{I}\PY{p}{[}\PY{l+m+mi}{35}\PY{p}{:}\PY{l+m+mi}{195}\PY{p}{]} \PY{c+c1}{\PYZsh{} crop}
+             \PY{n}{I} \PY{o}{=} \PY{n}{I}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{,}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{c+c1}{\PYZsh{} downsample by factor of 2}
+             \PY{n}{I}\PY{p}{[}\PY{n}{I} \PY{o}{==} \PY{l+m+mi}{144}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} erase background (background type 1)}
+             \PY{n}{I}\PY{p}{[}\PY{n}{I} \PY{o}{==} \PY{l+m+mi}{109}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} erase background (background type 2)}
+             \PY{n}{I}\PY{p}{[}\PY{n}{I} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{} everything else (paddles, ball) just set to 1}
+             \PY{n}{I} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{I}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} \PY{c+c1}{\PYZsh{} single color channel}
+                 
+             \PY{n}{dI} \PY{o}{=} \PY{n}{I} \PY{o}{\PYZhy{}} \PY{n}{process\PYZus{}pong\PYZus{}state}\PY{o}{.}\PY{n}{prevI} \PY{c+c1}{\PYZsh{} return difference with previous state}
+             \PY{n}{process\PYZus{}pong\PYZus{}state}\PY{o}{.}\PY{n}{prevI} \PY{o}{=} \PY{n}{I} \PY{c+c1}{\PYZsh{} store state}
+             \PY{k}{return} \PY{n}{dI}
+         
+         \PY{c+c1}{\PYZsh{} only use actions 2 (down) or 3 (up)}
+         \PY{n}{process\PYZus{}pong\PYZus{}action} \PY{o}{=} \PY{k}{lambda} \PY{n}{a}\PY{p}{:} \PY{l+m+mi}{3} \PY{k}{if} \PY{n}{a}\PY{o}{==}\PY{l+m+mi}{1} \PY{k}{else} \PY{l+m+mi}{2}
+         
+         \PY{n}{hidden\PYZus{}dims} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{]}
+         \PY{n}{seed} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{env}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{seed}\PY{p}{)}
+         \PY{n}{agent} \PY{o}{=} \PY{n}{ReinforceConv}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{80}\PY{p}{,} \PY{l+m+mi}{80}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{hidden\PYZus{}dims}\PY{o}{=}\PY{n}{hidden\PYZus{}dims}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{seed}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}
+         \PY{n}{agent}\PY{o}{.}\PY{n}{describe\PYZus{}model}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} scores = train\PYZus{}batches(env, agent, num\PYZus{}batches=2000, batch\PYZus{}size=5, max\PYZus{}steps=2000, report\PYZus{}every=10, animate\PYZus{}every=0,}
+         \PY{c+c1}{\PYZsh{}              process\PYZus{}state=process\PYZus{}pong\PYZus{}state, process\PYZus{}action=process\PYZus{}pong\PYZus{}action)}
+         \PY{c+c1}{\PYZsh{} agent.sess.close()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+States:  (80, 80, 1)
+Layer 0: 8 filters, 80 trainable weights
+Layer 2: 16 filters, 1168 trainable weights
+Layer 4: 32 filters, 4640 trainable weights
+Layer 6: 1 units, 3201 trainable weights
+---------------> 9089 total weights
+Actions: 2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} retrain more (outcome of earlier training rounds not shown...)}
+         \PY{n}{agent}\PY{o}{.}\PY{n}{mem\PYZus{}actions}\PY{p}{,} \PY{n}{agent}\PY{o}{.}\PY{n}{mem\PYZus{}states}\PY{p}{,} \PY{n}{agent}\PY{o}{.}\PY{n}{mem\PYZus{}rewards} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+         \PY{n}{scores} \PY{o}{=} \PY{n}{train\PYZus{}batches}\PY{p}{(}\PY{n}{env}\PY{p}{,} \PY{n}{agent}\PY{p}{,} \PY{n}{num\PYZus{}batches}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{max\PYZus{}steps}\PY{o}{=}\PY{l+m+mi}{1500}\PY{p}{,} \PY{n}{report\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{animate\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}
+                      \PY{n}{process\PYZus{}state}\PY{o}{=}\PY{n}{process\PYZus{}pong\PYZus{}state}\PY{p}{,} \PY{n}{process\PYZus{}action}\PY{o}{=}\PY{n}{process\PYZus{}pong\PYZus{}action}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0:00:23] batch: 1, score: -5
+[0:03:34] batch: 10, score: -4
+[0:07:00] batch: 20, score: -3
+[0:10:18] batch: 30, score: -3
+[0:13:46] batch: 40, score: -5
+[0:17:14] batch: 50, score: -5
+[0:20:45] batch: 60, score: -2
+[0:24:06] batch: 70, score: -4
+[0:27:27] batch: 80, score: -1
+[0:31:06] batch: 90, score: -3
+[0:34:38] batch: 100, score: -6
+[0:38:17] batch: 110, score: -4
+[0:41:55] batch: 120, score: -4
+[0:45:37] batch: 130, score: -4
+[0:49:00] batch: 140, score: -5
+[0:52:25] batch: 150, score: -4
+[0:55:52] batch: 160, score: -3
+[0:59:23] batch: 170, score: -2
+[1:02:50] batch: 180, score: -2
+[1:06:26] batch: 190, score: -2
+[1:10:02] batch: 200, score: -2
+Completed 200 batches in 4201 seconds (43\% of time spent training)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{3) REINFORCE and other algorithms using OpenAI's Spinning
+Up}\label{reinforce-and-other-algorithms-using-openais-spinning-up}
+
+This is just basic starter code. See
+https://spinningup.openai.com/en/latest/ for more info. You can run
+REINFORCE (Vanilla Policy Gradient, vpg) or more advanced algos like
+Proximal Policy Optimization (PPO).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{spinup\PYZus{}path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/gpho/packages/spinningup}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{n}{spinup\PYZus{}path}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} code for running outside jupyter notebook}
+        \PY{o}{!}python \PYZhy{}m spinup.run ppo \PYZhy{}\PYZhy{}exp\PYZus{}name ppo\PYZus{}swim \PYZhy{}\PYZhy{}env Swimmer\PYZhy{}v2 \PYZhy{}\PYZhy{}hid \PY{l+s+s2}{\PYZdq{}[64, 32]\PYZdq{}} \PYZhy{}\PYZhy{}act tf.nn.tanh \PYZhy{}\PYZhy{}seed \PY{l+m}{0} \PY{l+m}{10} \PY{l+m}{20} \PYZhy{}\PYZhy{}dt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} code for running inside jupyter notebook}
+        \PY{n}{tf}\PY{o}{.}\PY{n}{reset\PYZus{}default\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{env\PYZus{}fn} \PY{o}{=} \PY{k}{lambda} \PY{p}{:} \PY{n}{gym}\PY{o}{.}\PY{n}{make}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HalfCheetah\PYZhy{}v2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ac\PYZus{}kwargs} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{hidden\PYZus{}sizes}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{]}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{tanh}\PY{p}{)}
+        \PY{n}{logger\PYZus{}kwargs} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{output\PYZus{}dir}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log/HalfCheetah/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{exp\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ppo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{ppo}\PY{p}{(}\PY{n}{env\PYZus{}fn}\PY{o}{=}\PY{n}{env\PYZus{}fn}\PY{p}{,} \PY{n}{ac\PYZus{}kwargs}\PY{o}{=}\PY{n}{ac\PYZus{}kwargs}\PY{p}{,} \PY{n}{steps\PYZus{}per\PYZus{}epoch}\PY{o}{=}\PY{l+m+mi}{4000}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{,} \PY{n}{logger\PYZus{}kwargs}\PY{o}{=}\PY{n}{logger\PYZus{}kwargs}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{spinup}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{plot} \PY{k}{import} \PY{n}{make\PYZus{}plots}
+        \PY{k+kn}{from} \PY{n+nn}{spinup}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{test\PYZus{}policy} \PY{k}{import} \PY{n}{load\PYZus{}policy}\PY{p}{,} \PY{n}{run\PYZus{}policy}
+        
+        \PY{n}{nb\PYZus{}path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}
+        \PY{n}{spinup\PYZus{}path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZti{}/packages/spinningup}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{c+c1}{\PYZsh{} helper functions for use in ipython notebook}
+        \PY{k}{def} \PY{n+nf}{spinup\PYZus{}plot}\PY{p}{(}\PY{n}{logdir}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{xaxis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TotalEnvInteracts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{value}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Performance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{count}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{smooth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{select}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{exclude}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{est}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{o+ow}{not} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{logdir}\PY{p}{,} \PY{n+nb}{list}\PY{p}{)}\PY{p}{:}
+                \PY{n}{logdir} \PY{o}{=} \PY{p}{[}\PY{n}{logdir}\PY{p}{]}
+            \PY{k}{if} \PY{n}{legend} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None} \PY{o+ow}{and} \PY{o+ow}{not} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{legend}\PY{p}{,} \PY{n+nb}{list}\PY{p}{)}\PY{p}{:}
+                \PY{n}{legend} \PY{o}{=} \PY{p}{[}\PY{n}{legend}\PY{p}{]}
+                
+            \PY{n}{make\PYZus{}plots}\PY{p}{(}\PY{n}{logdir}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{n}{legend}\PY{p}{,} \PY{n}{xaxis}\PY{o}{=}\PY{n}{xaxis}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{n}{value}\PY{p}{,} \PY{n}{count}\PY{o}{=}\PY{n}{count}\PY{p}{,} \PY{n}{smooth}\PY{o}{=}\PY{n}{smooth}\PY{p}{,} \PY{n}{select}\PY{o}{=}\PY{n}{select}\PY{p}{,} \PY{n}{exclude}\PY{o}{=}\PY{n}{exclude}\PY{p}{,} \PY{n}{estimator}\PY{o}{=}\PY{n}{est}\PY{p}{)}    
+            
+        \PY{k}{def} \PY{n+nf}{spinup\PYZus{}test}\PY{p}{(}\PY{n}{fpath}\PY{p}{,} \PY{n}{length}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{episodes}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{norender}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{itr}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{deterministic}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+            \PY{n}{env}\PY{p}{,} \PY{n}{get\PYZus{}action} \PY{o}{=} \PY{n}{load\PYZus{}policy}\PY{p}{(}\PY{n}{fpath}\PY{p}{,} 
+                                          \PY{n}{itr} \PY{k}{if} \PY{n}{itr} \PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{0} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{last}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                          \PY{n}{deterministic}\PY{p}{)}
+            \PY{n}{run\PYZus{}policy}\PY{p}{(}\PY{n}{env}\PY{p}{,} \PY{n}{get\PYZus{}action}\PY{p}{,} \PY{n}{length}\PY{p}{,} \PY{n}{episodes}\PY{p}{,} \PY{o+ow}{not}\PY{p}{(}\PY{n}{norender}\PY{p}{)}\PY{p}{)}
+            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{spinup\PYZus{}plot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log/HalfCheetah/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
